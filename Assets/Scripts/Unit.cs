@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
+    [SerializeField] private Animator unitAnimator;
     private Vector3 targetPosition;
     private float moveSpeed = 4f;
 
@@ -14,7 +15,16 @@ public class Unit : MonoBehaviour
         {
             Vector3 moveDirection = (targetPosition - transform.position).normalized;
             transform.position += moveDirection * Time.deltaTime * moveSpeed;
+            unitAnimator.SetBool("IsWalking", true);
+
+            float rotateSpeed = 10f;
+            transform.forward = Vector3.Lerp(transform.forward, moveDirection, Time.deltaTime * rotateSpeed);
         }
+        else 
+        {
+            unitAnimator.SetBool("IsWalking", false);
+        }
+
 
         if (Input.GetMouseButtonDown(0))
         {
