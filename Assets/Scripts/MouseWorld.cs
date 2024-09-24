@@ -13,11 +13,6 @@ public class MouseWorld : MonoBehaviour
         instance = this;
     }
 
-    private void Update()
-    {
-        
-    }
-
     private void GetMousePosition()
     {
         transform.position = GetPosition();
