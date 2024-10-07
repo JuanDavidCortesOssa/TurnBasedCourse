@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class Unit : MonoBehaviour
 {
@@ -8,9 +9,17 @@ public class Unit : MonoBehaviour
     private Vector3 targetPosition;
     private float moveSpeed = 4f;
 
+    private GridPosition currentGrodPosition;
+
     private void Awake()
     {
         targetPosition = transform.position;
+    }
+
+    private void Start()
+    {
+        currentGrodPosition = LevelGrid.Instance.GetGridPosition(transform.position);
+        LevelGrid.Instance.AddUnitAtGridPosition(currentGrodPosition, this);
     }
 
     void Update()
@@ -28,6 +37,13 @@ public class Unit : MonoBehaviour
         else 
         {
             unitAnimator.SetBool("IsWalking", false);
+        }
+
+        GridPosition newGridPosition = LevelGrid.Instance.GetGridPosition(transform.position);
+        if (newGridPosition != currentGrodPosition)
+        {
+            LevelGrid.Instance.UnitMovedGridPosition(this, currentGrodPosition, newGridPosition);
+            currentGrodPosition = newGridPosition;
         }
     }
 
