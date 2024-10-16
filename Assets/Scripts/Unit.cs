@@ -5,50 +5,32 @@ using UnityEngine.Rendering;
 
 public class Unit : MonoBehaviour
 {
-    [SerializeField] private Animator unitAnimator;
-    private Vector3 targetPosition;
-    private float moveSpeed = 4f;
-
-    private GridPosition currentGrodPosition;
+    private GridPosition currentGridPosition;
+    private MoveAction moveAction;
 
     private void Awake()
     {
-        targetPosition = transform.position;
+        moveAction = GetComponent<MoveAction>();
     }
 
     private void Start()
     {
-        currentGrodPosition = LevelGrid.Instance.GetGridPosition(transform.position);
-        LevelGrid.Instance.AddUnitAtGridPosition(currentGrodPosition, this);
+        currentGridPosition = LevelGrid.Instance.GetGridPosition(transform.position);
+        LevelGrid.Instance.AddUnitAtGridPosition(currentGridPosition, this);
     }
 
     void Update()
     {
-        float stoppingDistance = .1f;
-        if (Vector3.Distance(transform.position, targetPosition) > stoppingDistance)
-        {
-            Vector3 moveDirection = (targetPosition - transform.position).normalized;
-            transform.position += moveDirection * Time.deltaTime * moveSpeed;
-            unitAnimator.SetBool("IsWalking", true);
-
-            float rotateSpeed = 10f;
-            transform.forward = Vector3.Lerp(transform.forward, moveDirection, Time.deltaTime * rotateSpeed);
-        }
-        else 
-        {
-            unitAnimator.SetBool("IsWalking", false);
-        }
-
         GridPosition newGridPosition = LevelGrid.Instance.GetGridPosition(transform.position);
-        if (newGridPosition != currentGrodPosition)
+        if (newGridPosition != currentGridPosition)
         {
-            LevelGrid.Instance.UnitMovedGridPosition(this, currentGrodPosition, newGridPosition);
-            currentGrodPosition = newGridPosition;
+            LevelGrid.Instance.UnitMovedGridPosition(this, currentGridPosition, newGridPosition);
+            currentGridPosition = newGridPosition;
         }
     }
 
-    public void Move(Vector3 targetPosition)
+    public MoveAction GetMoveAction()
     {
-        this.targetPosition = targetPosition;
+        return moveAction;
     }
 }
