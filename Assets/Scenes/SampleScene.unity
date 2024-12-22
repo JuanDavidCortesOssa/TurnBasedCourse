@@ -1181,5 +1181,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Unit
       objectReference: {fileID: 0}
+    - target: {fileID: 9126341139269780241, guid: 3d61e324fb358424689e95ca5afbe8b8,
+        type: 3}
+      propertyPath: maxMoveDistance
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3d61e324fb358424689e95ca5afbe8b8, type: 3}
