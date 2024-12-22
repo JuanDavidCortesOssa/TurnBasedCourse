@@ -1,13 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Testing : MonoBehaviour
-{
+public class Testing : MonoBehaviour {
+    [SerializeField] private Unit unit;
 
-
-    public void Start()
-    {
-
+    private void Update() {
+        if (Input.GetKeyDown(KeyCode.T)) {
+            unit.GetMoveAction().GetValidGridPositionList();
+        }
     }
 }
