@@ -8,7 +8,9 @@ public class Testing : MonoBehaviour {
 
     private void Update() {
         if (Input.GetKeyDown(KeyCode.T)) {
-            unit.GetMoveAction().GetValidGridPositionList();
+            List<GridPosition> validGridPositions = unit.GetMoveAction().GetValidGridPositionList();
+            GridSystemVisual.Instance.HideAllGridPositions();
+            GridSystemVisual.Instance.ShowGridPositionList(validGridPositions);
         }
     }
 }
