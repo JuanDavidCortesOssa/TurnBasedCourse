@@ -7,6 +7,7 @@ using Random = Unity.Mathematics.Random;
 
 public class SpinAction : BaseAction {
     private float totalSpinAmount = 0f;
+    private Action spinCompleteDelegate;
 
     public void Update() {
         if (!isActive) return;
@@ -18,9 +19,12 @@ public class SpinAction : BaseAction {
         if (!(totalSpinAmount >= 360f)) return;
         totalSpinAmount = 0f;
         isActive = false;
+
+        spinCompleteDelegate?.Invoke();
     }
 
-    public void Spin() {
+    public void Spin(Action callback) {
+        spinCompleteDelegate = callback;
         totalSpinAmount = 0;
         isActive = true;
     }
