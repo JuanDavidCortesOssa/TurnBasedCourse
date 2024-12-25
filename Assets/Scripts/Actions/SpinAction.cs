@@ -9,6 +9,10 @@ public class SpinAction : BaseAction {
     private float totalSpinAmount = 0f;
     private Action spinCompleteDelegate;
 
+    public override string GetActionName() {
+        return "Spin";
+    }
+
     public void Update() {
         if (!isActive) return;
 

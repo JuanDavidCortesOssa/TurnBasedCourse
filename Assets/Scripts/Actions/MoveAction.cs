@@ -17,6 +17,10 @@ public class MoveAction : BaseAction {
         unit = GetComponent<Unit>();
     }
 
+    public override string GetActionName() {
+        return "Move";
+    }
+
     void Update() {
         if (!isActive) return;
         float stoppingDistance = .1f;
