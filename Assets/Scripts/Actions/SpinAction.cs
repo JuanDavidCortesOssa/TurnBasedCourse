@@ -27,9 +27,14 @@ public class SpinAction : BaseAction {
         spinCompleteDelegate?.Invoke();
     }
 
-    public void Spin(Action callback) {
+    public override void TakeAction(GridPosition gridPosition, Action callback) {
         spinCompleteDelegate = callback;
         totalSpinAmount = 0;
         isActive = true;
+    }
+
+    public override List<GridPosition> GetValidGridPositionList() {
+        GridPosition currentGridPosition = unit.GetCurrentGridPosition();
+        return new List<GridPosition>() { currentGridPosition };
     }
 }
