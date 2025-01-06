@@ -37,4 +37,8 @@ public class SpinAction : BaseAction {
         GridPosition currentGridPosition = unit.GetCurrentGridPosition();
         return new List<GridPosition>() { currentGridPosition };
     }
+
+    public override int GetActionCost() {
+        return 2;
+    }
 }
